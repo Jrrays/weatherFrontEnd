@@ -1,6 +1,6 @@
 # Weather Frontend
 
-A frontend app for [Jrrays/weatherBackend](https://github.com/Jrrays/weatherFrontEnd)
+A frontend app for [Jrrays/weatherBackend](https://github.com/Jrrays/weatherBackEnd)
 
 ## TODO
 - Show further weater data
