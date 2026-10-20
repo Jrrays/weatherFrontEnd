@@ -28,7 +28,7 @@ navigator.geolocation.getCurrentPosition(
 <template>
   <v-responsive class="border rounded" max-height="100dvh">
     <v-app>
-      <v-app-bar title="Weather App" />
+      <v-app-bar title="Weather Front End" />
 
       <v-navigation-drawer>
         <v-list>
