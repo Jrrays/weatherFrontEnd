@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-
 
 if (!('geolocation' in navigator)) {
   console.error('Geolocation not supported by this shitty old browser')
