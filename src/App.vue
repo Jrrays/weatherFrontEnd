@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 if (!('geolocation' in navigator)) {
-  console.error('Geolocation not supported by this shitty old browser')
+  console.error('Geolocation not supported by this browser')
 }
 
 navigator.geolocation.getCurrentPosition(
@@ -10,14 +10,14 @@ navigator.geolocation.getCurrentPosition(
       lat: position.coords.latitude,
       lon: position.coords.longitude
     }
-   localStorage.setItem("location", JSON.stringify(coords))
-   console.log("Location cached!")
+    localStorage.setItem("location", JSON.stringify(coords))
+    console.log("Location cached!")
   },
   (err) => {
-   
+
     console.error("Error:", err)
   }, {
-  enableHighAccuracy: false,
+  enableHighAccuracy: true,
   timeout: 10000,
   maximumAge: 60000
 }
