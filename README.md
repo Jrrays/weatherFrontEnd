@@ -6,6 +6,7 @@ A frontend app for [Jrrays/weatherBackend](https://github.com/Jrrays/weatherBack
 - Show further weater data
 - Fetch moon phase data
 - More views?
+- Localization
 - Make it look pretty
 - User authentication
 
