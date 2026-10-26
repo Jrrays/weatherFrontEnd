@@ -4,7 +4,7 @@ export interface CachePayload<T> {
 }
 
 const CACHE_KEY = 'weather_data_cache'
-const CACHE_TTL_MS = 15 * 60 * 1000
+const CACHE_TTL_MS = 15 * 60 * 1000 //15 minutes
 
 export const getCachedWeather = <T>(): T | null => {
     const cached = localStorage.getItem(CACHE_KEY)

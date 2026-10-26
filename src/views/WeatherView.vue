@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import { getCachedWeather, setCachedWeather } from '../weatherCaching'
+import { getCachedWeather, setCachedWeather } from '../helpers/weatherCaching'
 
 interface MetricRow {
     property: string
