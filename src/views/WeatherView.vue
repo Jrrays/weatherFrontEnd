@@ -50,10 +50,9 @@ const fetchWeather = async (forceRefresh = false) => {
         let coords = localStorage.getItem("location")
         if (coords) {
             const parsedCoords = JSON.parse(coords)
-            const url = new URL("http://localhost:8090/currentweather")
+            const url = new URL(import.meta.env.VITE_SERVER_URL + "/currentweather")
             url.searchParams.set("lat", parsedCoords.lat.toString())
             url.searchParams.set("lon", parsedCoords.lon.toString())
-            console.log(url)
             const res = await fetch(url)
             if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`)
 
