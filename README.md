@@ -2,6 +2,10 @@
 
 A frontend app for [Jrrays/weatherBackend](https://github.com/Jrrays/weatherBackEnd)
 
+## Prerequisite
+- Rename .env.template to .env  
+- Fill in the backend server URL (e.g., "http://localhost:8090")
+
 ## TODO
 - Show further weater data
 - Fetch moon phase data
