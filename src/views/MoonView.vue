@@ -10,14 +10,16 @@ interface DataRow {
 const loading = ref(false)
 const errr = ref("")
 const svg = ref("")
+const phaseName = ref("")
 const moonData = ref<DataRow[]>([])
 
 const processMoonData = (data: Record<string, any>) => {
-    // Save svg data to separate ref
+    // Save phase name and svg data to separate ref
+    phaseName.value = data.PhaseName
     svg.value = data.Svg || ""
 
-    //Exclude svg data
-    const { Svg: _i, ...metrics } = data
+    //Exclude phase name and svg data from
+    const { Svg: _i, PhaseName: _d, ...metrics } = data
 
     moonData.value = Object.entries(metrics).map(([property, value]) => ({
         property,
@@ -65,7 +67,31 @@ onMounted(() => {
 </script>
 
 <template>
-    <h1>Moon view</h1>
+    <main class="pa-4 d-flex flex-column align-center">
+        <h1>Moon phase today</h1>
+        <div v-if="errr" class="text-error mb-4">{{ errr }}</div>
+
+        <!--Moon overview card-->
+        <v-card width="360" class="overview-card" elevation="2">
+            <v-card-item>
+                <v-card-title>Current moon phase</v-card-title>
+                <v-card-subtitle v-if="phaseName" class="text-capitalize">{{ phaseName }}</v-card-subtitle>
+                <v-card-text>
+                    <span v-html="svg"></span>
+                </v-card-text>
+            </v-card-item>
+        </v-card>
+
+        <!--Table card-->
+        <v-card width="360" elevation="2">
+            <v-data-table :items="moonData" :loading="loading" density="compact" disable-sort hide-default-header hide-default-footer />
+        </v-card>
+    </main>
 </template>
 
-<style lang="css" scoped></style>
+<style lang="css" scoped>
+.overview-card {
+    text-align: center;
+    background-color: #3c3c3c;
+}
+</style>
