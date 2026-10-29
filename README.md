@@ -13,6 +13,7 @@ A frontend app for [Jrrays/weatherBackend](https://github.com/Jrrays/weatherBack
 - Localization
 - Make it look pretty
 - User authentication
+- Sanitize URLs with DOMPurify
 
 ## Project Setup
 
