@@ -1,25 +1,27 @@
 <script setup lang="ts">
 import { emojiPicker } from '@/helpers/emojis';
+import '../style.css'
 
 const emojiAttributes = {
-    id: 'big_emoji',
+    id: 'big-emoji',
     class: 'waving'
 }
 
 </script>
 
 <template>
-    <span v-bind="emojiAttributes">{{ emojiPicker() }}</span>
-    <h1>This is the home view :)</h1>
+    <main>
+        <h1>This is the home view :)</h1>
+        <span v-bind="emojiAttributes">{{ emojiPicker() }}</span>
+    </main>
 </template>
 
 <style lang="css" scoped>
-#big_emoji {
+#big-emoji {
     font-size: 7rem;
 }
 
 .waving {
-    display: block;
     animation-name: wave;
     animation-duration: 2s;
     animation-iteration-count: infinite;
@@ -29,9 +31,11 @@ const emojiAttributes = {
     0% {
         transform: rotate(-4deg)
     }
+
     50% {
         transform: rotate(4deg);
     }
+
     100% {
         transform: rotate(-4deg);
     }

@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { getCachedWeather, setCachedWeather } from '../helpers/weatherCaching'
+import { infoCardParams } from '@/helpers/infoCardParams'
+import '../style.css'
 
 interface MetricRow {
     property: string
@@ -73,12 +75,12 @@ onMounted(() => {
 </script>
 
 <template>
-    <main class="pa-4 d-flex flex-column align-center">
+    <main>
         <h1>A look at your local radar</h1>
         <div v-if="errr" class="text-error mb-4">{{ errr }}</div>
 
         <!-- Weather Overview Card -->
-        <v-card width="360" class="mb-4 text-center" elevation="2">
+        <v-card v-bind="infoCardParams">
             <v-card-item>
                 <v-card-title>Current Weather</v-card-title>
                 <v-card-subtitle v-if="description" class="text-capitalize">
@@ -93,9 +95,9 @@ onMounted(() => {
         </v-card>
 
         <!-- Detailed Metrics Table -->
-        <v-card width="360" elevation="2">
+        <v-card v-bind="infoCardParams">
             <v-data-table :headers="headers" :items="weatherData" :loading="loading" hide-default-footer
-                density="compact" disable-sort hide-default-header />
+                density="comfortable" disable-sort hide-default-header />
         </v-card>
         <v-btn :loading="loading" variant="text" size="small" @click="fetchWeather(true)">
             Refresh Now
@@ -103,20 +105,4 @@ onMounted(() => {
     </main>
 </template>
 
-<style lang="css" scoped>
-.title {
-    color: whitesmoke;
-    font-family: 'monospace';
-    text-align: center;
-}
-
-.weather-card {
-    margin: 3%;
-    font-family: 'monospace';
-    color: whitesmoke;
-    text-align: center;
-    padding: 15px;
-    margin-left: auto;
-    margin-right: auto;
-}
-</style>
+<style lang="css" scoped></style>

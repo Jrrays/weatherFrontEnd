@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import { getCachedMoon, setCachedMoon } from '@/helpers/moonCaching';
+import { infoCardParams } from '@/helpers/infoCardParams';
+import '../style.css'
 
 interface DataRow {
     property: string
@@ -67,15 +69,15 @@ onMounted(() => {
 </script>
 
 <template>
-    <main class="pa-4 d-flex flex-column align-center">
-        <h1>Moon phase today</h1>
+    <main>
+        <h1 class="card-title">Moon phase today</h1>
         <div v-if="errr" class="text-error mb-4">{{ errr }}</div>
 
         <!--Moon overview card-->
-        <v-card width="360" class="overview-card" elevation="2">
+        <v-card v-bind="infoCardParams">
             <v-card-item>
                 <v-card-title>Current moon phase</v-card-title>
-                <v-card-subtitle v-if="phaseName" class="text-capitalize">{{ phaseName }}</v-card-subtitle>
+                <v-card-subtitle v-if="phaseName">{{ phaseName }}</v-card-subtitle>
                 <v-card-text>
                     <span v-html="svg"></span>
                 </v-card-text>
@@ -83,15 +85,11 @@ onMounted(() => {
         </v-card>
 
         <!--Table card-->
-        <v-card width="360" elevation="2">
-            <v-data-table :items="moonData" :loading="loading" density="compact" disable-sort hide-default-header hide-default-footer />
+        <v-card v-bind="infoCardParams">
+            <v-data-table :items="moonData" :loading="loading" density="comfortable" disable-sort hide-default-header
+                hide-default-footer />
         </v-card>
     </main>
 </template>
 
-<style lang="css" scoped>
-.overview-card {
-    text-align: center;
-    background-color: #3c3c3c;
-}
-</style>
+<style lang="css" scoped></style>

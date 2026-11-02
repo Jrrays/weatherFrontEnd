@@ -1,0 +1,21 @@
+main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1{
+    font-family: monospace;
+    text-align: center;
+    color: whitesmoke;
+}
+
+.info-card {
+    margin-bottom: 1rem;
+    font-family: 'monospace';
+    color: whitesmoke;
+    text-align: center;
+    padding: 15px;
+    margin-left: auto;
+    margin-right: auto;
+}
