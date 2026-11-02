@@ -10,6 +10,7 @@ A frontend app for [Jrrays/weatherBackend](https://github.com/Jrrays/weatherBack
 - Show further weater data
 - Fetch moon phase data
 - More views?
+- Fix Nav drawer not showing in narrower screens (mobile)
 - Localization
 - Make it look pretty
 - User authentication
