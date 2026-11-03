@@ -87,7 +87,6 @@ onMounted(() => {
                     {{ description }}
                 </v-card-subtitle>
             </v-card-item>
-
             <v-card-text>
                 <v-img v-if="iconLink" :src="iconLink" alt="Weather Condition Icon" width="100" height="100"
                     class="mx-auto" />

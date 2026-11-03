@@ -7,13 +7,17 @@ A frontend app for [Jrrays/weatherBackend](https://github.com/Jrrays/weatherBack
 - Fill in the backend server URL (e.g., "http://localhost:8090")
 
 ## TODO
+
+### Features
 - Show further weater data
 - Fetch moon phase data
 - More views?
-- Fix Nav drawer not showing in narrower screens (mobile)
 - Localization
 - Make it look pretty
 - User authentication
+
+### Fixes
+- Fix Nav drawer not showing in narrower screens (mobile)
 - Sanitize URLs with DOMPurify
 
 ## Project Setup
