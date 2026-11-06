@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { getCachedMoon, setCachedMoon } from '@/helpers/moonCaching';
 import { infoCardParams } from '@/helpers/infoCardParams';
 import '../style.css'
@@ -9,19 +9,68 @@ interface DataRow {
     value: any
 }
 
+interface UpcomingPhase {
+    phase: string
+    time: string
+}
+
+interface ClientResponse {
+    PhaseName: string
+    PhaseAngle: number
+    Age: number
+    Distance: number
+    Svg: string
+    TraditionalName: string
+    AppliesTo: string
+    NextPhases: UpcomingPhase[]
+}
+
+interface CalendarEvent {
+    title: string
+    start: Date
+    end: Date
+    color?: string
+    allDay?: boolean
+}
+
 const loading = ref(false)
 const errr = ref("")
 const svg = ref("")
 const phaseName = ref("")
+const rawMoonData = ref<ClientResponse | null>(null)
 const moonData = ref<DataRow[]>([])
 
-const processMoonData = (data: Record<string, any>) => {
+const mapMoonEvents = (data: ClientResponse | null): CalendarEvent[] => {
+    if (!data) return []
+
+    const colors: Record<string, string> = {
+        'New Moon': 'red',
+        'First Quarter': 'blue',
+        'Full Moon': 'yellow',
+        'Last Quarter': 'indigo'
+    }
+    return data.NextPhases.map(item => {
+        const d = new Date(item.time)
+        return {
+            title: item.phase,
+            start: d,
+            end: d,
+            color: colors[item.phase] ?? 'teal',
+            allDay: true
+        }
+    })
+}
+
+const calendarEvents = computed(() => mapMoonEvents(rawMoonData.value))
+
+const processMoonData = (data: ClientResponse) => {
     // Save phase name and svg data to separate ref
-    phaseName.value = data.PhaseName
+    rawMoonData.value = data
+    phaseName.value = data.PhaseName || ""
     svg.value = data.Svg || ""
 
     //Exclude phase name and svg data from
-    const { Svg: _i, PhaseName: _d, ...metrics } = data
+    const { Svg: _i, PhaseName: _d, NextPhases: _s, ...metrics } = data
 
     moonData.value = Object.entries(metrics).map(([property, value]) => ({
         property,
@@ -32,7 +81,7 @@ const processMoonData = (data: Record<string, any>) => {
 const fetchMoon = async (forceFetch = false) => {
     //Check the cache for moon data
     if (!forceFetch) {
-        const cached = getCachedMoon<Record<string, any>>()
+        const cached = getCachedMoon<ClientResponse>()
         if (cached) {
             processMoonData(cached)
             return
@@ -51,7 +100,7 @@ const fetchMoon = async (forceFetch = false) => {
             const res = await fetch(url)
             if (!res.ok) throw new Error(`HTTP Error! Status: ${res.status}`)
 
-            const data: Record<string, any> = await res.json()
+            const data: ClientResponse = await res.json()
             processMoonData(data)
             setCachedMoon(data)
         }
@@ -89,6 +138,7 @@ onMounted(() => {
             <v-data-table :items="moonData" :loading="loading" density="comfortable" disable-sort hide-default-header
                 hide-default-footer />
         </v-card>
+        <v-calendar :events="calendarEvents"" expanded></v-calendar>
     </main>
 </template>
 
